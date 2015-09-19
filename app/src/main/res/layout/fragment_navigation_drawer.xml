@@ -1,8 +1,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:id="@+id/googleDrawer"
-                android:background="@android:color/white">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+
+    <!--
+    <RelativeLayout
+        android:id="@+id/nav_header_container"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_profile"
+            android:scaleType="fitCenter"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+-->
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,6 +37,7 @@
             android:layout_height="64dp"
             android:id="@+id/imgAvatar"
             android:layout_alignParentTop="true"
+            android:src="@drawable/tzlogo"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="16dp"
@@ -38,6 +60,7 @@
                 android:layout_height="0dp"
                 android:id="@+id/txtUsername"
                 android:layout_weight="1"
+                android:text="Sai Teja"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"/>
@@ -45,6 +68,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:text="TZ137261"
                 android:id="@+id/txtUserEmail"
                 android:layout_weight="1"
                 android:textColor="@android:color/white"/>
@@ -67,5 +91,6 @@
         android:layout_height="match_parent"
         android:background="@color/myDrawerBackground"
         android:layout_below="@+id/separator"/>
+
 
 </RelativeLayout>
