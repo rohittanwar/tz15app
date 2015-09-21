@@ -118,11 +118,15 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
 
     public List<NavigationItem> getMenu() {
         List<NavigationItem> items = new ArrayList<NavigationItem>();
-        items.add(new NavigationItem(getString(R.string.technozion), getResources().getDrawable(R.drawable.ic_tz)));
-        items.add(new NavigationItem(getString(R.string.loginorreg), getResources().getDrawable(R.drawable.ic_action_trending_up)));
-        items.add(new NavigationItem(getString(R.string.myaccount), getResources().getDrawable(R.drawable.ic_action_account_box)));
-        items.add(new NavigationItem(getString(R.string.events), getResources().getDrawable(R.drawable.ic_action_account_box)));
-        items.add(new NavigationItem(getString(R.string.track), getResources().getDrawable(R.drawable.ic_googlemaps)));
+        items.add(new NavigationItem(getString(R.string.nav_home), getResources().getDrawable(R.drawable.ic_tz)));
+        items.add(new NavigationItem(getString(R.string.nav_profile), getResources().getDrawable(R.drawable.ic_action_trending_up)));
+        items.add(new NavigationItem(getString(R.string.nav_registration), getResources().getDrawable(R.drawable.ic_action_account_box)));
+        items.add(new NavigationItem(getString(R.string.nav_events), getResources().getDrawable(R.drawable.ic_action_account_box)));
+        items.add(new NavigationItem(getString(R.string.nav_workshops), getResources().getDrawable(R.drawable.ic_action_account_box)));
+        items.add(new NavigationItem(getString(R.string.nav_map), getResources().getDrawable(R.drawable.ic_googlemaps)));
+        items.add(new NavigationItem(getString(R.string.nav_t_shirts), getResources().getDrawable(R.drawable.ic_action_account_box)));
+        items.add(new NavigationItem(getString(R.string.nav_faq), getResources().getDrawable(R.drawable.ic_action_account_box)));
+        items.add(new NavigationItem(getString(R.string.nav_logout), getResources().getDrawable(R.drawable.ic_action_account_box)));
         return items;
     }
 
