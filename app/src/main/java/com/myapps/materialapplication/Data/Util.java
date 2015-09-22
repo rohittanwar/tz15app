@@ -24,12 +24,15 @@ public class Util {
 //            urlConnection.setDoOutput(false);
 //
             HttpURLConnection httpURLConnection=(HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("POST");
+//            httpURLConnection.setRequestMethod("POST");
+//            httpURLConnection.setDoInput(true);
+//            httpURLConnection.setDoOutput(true);
             httpURLConnection.connect();
             InputStream is=httpURLConnection.getInputStream();
 //            InputStream is=urlConnection.getInputStream();
 
             BufferedReader reader=new BufferedReader(new InputStreamReader(is));
+
 
             String line=null;
             StringBuilder builder=new StringBuilder();
