@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity
@@ -39,18 +40,49 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         Fragment fragment;
         switch (position) {
-            case 0: //search//todo
+            case 0: //home
+
+                    fragment = new HomeFragment();
+                getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
                 break;
-            case 1: //stats
-                fragment = getFragmentManager().findFragmentByTag(StatsFragment.TAG);
-                if (fragment == null) {
-                    fragment = new StatsFragment();
-                }
-                getFragmentManager().beginTransaction().replace(R.id.container, fragment, StatsFragment.TAG).commit();
+            case 1: //profile
+                Toast.makeText(getApplicationContext(),"hello",Toast.LENGTH_LONG).show();
+                    fragment = new ProfileFragment();
+                getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
                 break;
-            case 2: //my account //todo
+            case 2: //registration
+                    fragment = new RegistrationFragment();
+                getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
                 break;
-            case 3: //settings //todo
+            case 3: //events
+                    fragment = new EventsFragment();
+                getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
+                break;
+            case 4: //workshops
+                    fragment = new WorkshopsFragment();
+                getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
+                break;
+            case 5: //Map //TODO
+//                fragment = getFragmentManager().findFragmentByTag(EventsFragment.TAG);
+//                if (fragment == null) {
+//                    fragment = new EventsFragment();
+//                }
+//                getFragmentManager().beginTransaction().replace(R.id.container, fragment, EventsFragment.TAG).commit();
+                break;
+            case 6: //T-Shirts
+                    fragment = new TShirtsFragment();
+                getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
+                break;
+            case 7: //FAQ
+                    fragment = new FAQFragment();
+                getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
+                break;
+            case 8: //logout //TODO
+//                fragment = getFragmentManager().findFragmentByTag(EventsFragment.TAG);
+//                if (fragment == null) {
+//                    fragment = new EventsFragment();
+//                }
+//                getFragmentManager().beginTransaction().replace(R.id.container, fragment, EventsFragment.TAG).commit();
                 break;
         }
     }
@@ -84,11 +116,6 @@ public class MainActivity extends ActionBarActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-
-
         return super.onOptionsItemSelected(item);
     }
-
-
 }

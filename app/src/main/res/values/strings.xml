@@ -10,4 +10,18 @@
     <string name="track">Track</string>
     <string name="action_search">Search</string>
     <string name="action_filter">Filter</string>
+
+    <!-- Nav Bar-->
+    <string name="nav_home">Home</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_registration">Registration</string>
+    <string name="nav_events">Events</string>
+    <string name="nav_workshops">Workshops</string>
+    <string name="nav_map">Map</string>
+    <string name="nav_t_shirts">T-Shirts</string>
+    <string name="nav_faq">FAQ</string>
+    <string name="nav_logout">Logout</string>
+    <string name="title_activity_register_event">RegisterEvent</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>
