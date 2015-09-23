@@ -41,26 +41,33 @@ public class MainActivity extends ActionBarActivity
         Fragment fragment;
         switch (position) {
             case 3: //home
-
+                fragment = getFragmentManager().findFragmentByTag(StatsFragment.TAG);
+                    if(fragment==null)
                     fragment = new HomeFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
                 break;
             case 1: //profile
                 Toast.makeText(getApplicationContext(),"hello",Toast.LENGTH_LONG).show();
+                fragment = getFragmentManager().findFragmentByTag(ProfileFragment.TAG);
+                if(fragment==null)
                     fragment = new ProfileFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
                 break;
             case 2: //registration
+                fragment = getFragmentManager().findFragmentByTag(StatsFragment.TAG);
+                if(fragment==null)
                     fragment = new RegistrationFragment();
-                getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
+                getFragmentManager().beginTransaction().replace(R.id.container, fragment, RegistrationFragment.TAG).commit();
                 break;
             case 0: //events
+                fragment = getFragmentManager().findFragmentByTag(StatsFragment.TAG);
+                if(fragment==null)
                     fragment = new EventsFragment();
-                getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
+                getFragmentManager().beginTransaction().replace(R.id.container, fragment, EventsFragment.TAG).commit();
                 break;
             case 4: //workshops
                     fragment = new WorkshopsFragment();
-                getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
+                getFragmentManager().beginTransaction().replace(R.id.container, fragment, WorkshopsFragment.TAG).commit();
                 break;
             case 5: //Map //TODO
 //                fragment = getFragmentManager().findFragmentByTag(EventsFragment.TAG);
@@ -71,11 +78,11 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 6: //T-Shirts
                     fragment = new TShirtsFragment();
-                getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
+                getFragmentManager().beginTransaction().replace(R.id.container, fragment, TShirtsFragment.TAG).commit();
                 break;
             case 7: //FAQ
                     fragment = new FAQFragment();
-                getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
+                getFragmentManager().beginTransaction().replace(R.id.container, fragment, FAQFragment.TAG).commit();
                 break;
             case 8: //logout //TODO
 //                fragment = getFragmentManager().findFragmentByTag(EventsFragment.TAG);

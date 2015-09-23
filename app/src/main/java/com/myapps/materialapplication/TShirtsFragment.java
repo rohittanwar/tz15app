@@ -11,7 +11,7 @@ import android.view.ViewGroup;
  * Created by poliveira on 11/03/2015.
  */
 public class TShirtsFragment extends Fragment {
-    public static final String TAG = "stats";
+    public static final String TAG = "Tshirts";
 
     @Nullable
     @Override
