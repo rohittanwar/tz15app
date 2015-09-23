@@ -22,6 +22,7 @@
     <string name="nav_faq">FAQ</string>
     <string name="nav_logout">Logout</string>
     <string name="title_activity_register_event">RegisterEvent</string>
+    <string name="title_activity_register_workshop">RegisterWorkshop</string>
     <string name="hello_world">Hello world!</string>
 
 </resources>
