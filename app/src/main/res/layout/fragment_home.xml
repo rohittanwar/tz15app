@@ -2,14 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+    android:background="@drawable/tz_main">
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="-------"
+        android:textColor="@color/next_event_time"
+        android:text="30 4:15 pm"
         android:id="@+id/textViewNextEvent2Time"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -19,7 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:textColor="@color/next_event"
+        android:text="Fox Hunt"
         android:id="@+id/textViewNextEvent2"
         android:layout_above="@+id/textViewNextEvent2Time"
         android:layout_alignParentRight="true"
@@ -29,7 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="----------"
+        android:textColor="@color/next_event_time"
+        android:text="29 11:15 am"
         android:id="@+id/textViewNextEventTime"
         android:layout_above="@+id/textViewNextEvent2"
         android:layout_alignParentLeft="true"
@@ -39,7 +43,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:textColor="@color/next_event"
+        android:text="Jahaaz"
         android:id="@+id/textViewnextEvent"
         android:layout_above="@+id/textViewNextEventTime"
         android:layout_alignParentLeft="true"
