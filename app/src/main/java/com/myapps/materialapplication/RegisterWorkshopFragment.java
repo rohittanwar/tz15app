@@ -96,7 +96,7 @@ public class RegisterWorkshopFragment extends Fragment implements AdapterView.On
         @Override
         protected String[] doInBackground(Void... voids) {
 
-            String jsonstr= Util.getStringFromURLWithPost(eventlisturl);
+            String jsonstr= Util.getStringFromURL(eventlisturl);
             if (jsonstr!=null) {
                 Log.d("GOT FROM HTTP", jsonstr);
             }

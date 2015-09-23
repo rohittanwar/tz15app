@@ -2,19 +2,16 @@ package com.myapps.materialapplication;
 
 
 import android.app.ProgressDialog;
-import android.app.VoiceInteractor;
-import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.util.LruCache;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,7 +31,7 @@ import java.util.ArrayList;
 public class RegisterEventFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 //    public static final String eventlisturl="http://jsonplaceholder.typicode.com/posts";
     public static final String eventlisturl="http://192.168.87.50/tz-registration-master/events/get_all_events_mobile";
-
+    public static final String registerurl="http://localhost/tz-registration-master/events/registerteam";
     private ArrayList<Integer> ids;
     private ArrayList<String> names;
     private int min;
@@ -42,7 +39,7 @@ public class RegisterEventFragment extends Fragment implements AdapterView.OnIte
     private int max;
     private ArrayList<Integer> maxs;
 
-    private ProgressDialog progressDialog;
+//    private ProgressDialog progressDialog;
     Spinner spinner;
 
     private LinearLayout linearLayout;
@@ -62,7 +59,38 @@ public class RegisterEventFragment extends Fragment implements AdapterView.OnIte
 
         spinner=(Spinner)getActivity().findViewById(R.id.spinnerNewEvents);
         linearLayout=(LinearLayout)getActivity().findViewById(R.id.linearLayoutParticipants);
-        new loadEvents().execute();
+        new LoadEventsTask().execute();
+
+        getActivity().findViewById(R.id.buttonRegister).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<Integer> tzIdList=new ArrayList<Integer>();
+                int count=linearLayout.getChildCount();
+                try {
+                    for (int i = 0; i < count; i++) {
+                        String text=((EditText) linearLayout.getChildAt(i)).getText().toString();
+                        if(text.equals("")){
+                            if(((EditText) linearLayout.getChildAt(i)).getHint().toString().equals("optional")){
+                                break;
+                            }
+                            throw new Exception("null");
+                        }
+                        int tzid=Integer.parseInt(text);
+                        Log.d("tzid", "" + tzid);
+                        if (tzIdList.contains(tzid)){
+                            throw new Exception("Already exists");
+                        }
+                        tzIdList.add(tzid);
+                    }
+                    new RegisterEventTask().execute(tzIdList);
+//                    Toast.makeText(getActivity(), "registered", Toast.LENGTH_SHORT).show();
+                    
+                } catch (Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(),"Please check the details",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 
@@ -72,12 +100,28 @@ public class RegisterEventFragment extends Fragment implements AdapterView.OnIte
         min=mins.get(i);
         max=maxs.get(i);
         ((TextView)getActivity().findViewById(R.id.textViewMinimumParticipantsValue)).setText("" + min);
-        ((TextView)getActivity().findViewById(R.id.textViewMaximumParticipantsValue)).setText(""+max);
+        ((TextView)getActivity().findViewById(R.id.textViewMaximumParticipantsValue)).setText("" + max);
 
-        for(int j=0;j<min;j++){
+        linearLayout.removeAllViews();
+
+        View view2=getActivity().getLayoutInflater().inflate(R.layout.edit_text_tz_id,null);
+        ((EditText)view2).setText("232332");
+        view2.setEnabled(false);
+        linearLayout.addView(view2);
+
+        int j;
+        for(j=1;j<min;j++){
             View view1=getActivity().getLayoutInflater().inflate(R.layout.edit_text_tz_id,null);
+//            view1.setEnabled(false);
+            ((EditText)view1).setHint("required");
             linearLayout.addView(view1);
         }
+        for(;j<max;j++){
+            View view1=getActivity().getLayoutInflater().inflate(R.layout.edit_text_tz_id,null);
+            ((EditText)view1).setHint("optional");
+            linearLayout.addView(view1);
+        }
+
     }
 
     @Override
@@ -85,15 +129,17 @@ public class RegisterEventFragment extends Fragment implements AdapterView.OnIte
 
     }
 
-    public class loadEvents extends AsyncTask<Void,Void,String[]>{
 
+    public class LoadEventsTask extends AsyncTask<Void,Void,String[]>{
+
+        private ProgressDialog progressDialog;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog=new ProgressDialog(getActivity());
             progressDialog.setMessage("fetching event list..");
             progressDialog.setCancelable(false);
-//            progressDialog.show();
+            progressDialog.show();
         }
 
         @Override
@@ -102,39 +148,38 @@ public class RegisterEventFragment extends Fragment implements AdapterView.OnIte
             String jsonstr= Util.getStringFromURL(eventlisturl);
             if (jsonstr!=null) {
                 Log.d("GOT FROM HTTP", jsonstr);
-            }
-//            JSONObject jsonObject=new JSONObject(jsonstr);
-            try {
+                try {
 //                JSONObject jsonObject=new JSONObject(jsonstr);
 //                JSONArray events=jsonObject.getJSONArray("events");
 //
-                JSONArray jsonArray=new JSONArray(jsonstr);
+                    JSONArray jsonArray=new JSONArray(jsonstr);
 //                ArrayList<String> events=new ArrayList<>();
-                int len=jsonArray.length();
-                ids=new ArrayList<>();
-                names=new ArrayList<>();
-                mins=new ArrayList<>();
-                maxs=new ArrayList<>();
+                    int len=jsonArray.length();
+                    ids=new ArrayList<>();
+                    names=new ArrayList<>();
+                    mins=new ArrayList<>();
+                    maxs=new ArrayList<>();
 
-                for(int i=0;i<len;i++){
-                    JSONObject jsonObject=jsonArray.getJSONObject(i);
-                    ids.add(jsonObject.getInt("eventid"));
-                    names.add(jsonObject.getString("ename"));
-                    mins.add(jsonObject.getInt("min"));
-                    maxs.add(jsonObject.getInt("max"));
+                    for(int i=0;i<len;i++){
+                        JSONObject jsonObject=jsonArray.getJSONObject(i);
+                        ids.add(jsonObject.getInt("eventid"));
+                        names.add(jsonObject.getString("ename"));
+                        mins.add(jsonObject.getInt("min"));
+                        maxs.add(jsonObject.getInt("max"));
 
 //                    events.add(jsonArray.getString(i));
-                }
+                    }
 //                return (String[])names.toArray();
-                String[] strings=new String[names.size()];
-                for (int i=0;i<names.size();i++){
-                    strings[i]=names.get(i);
+                    String[] strings=new String[names.size()];
+                    for (int i=0;i<names.size();i++){
+                        strings[i]=names.get(i);
+                    }
+                    return strings;
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                return strings;
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-
+//            JSONObject jsonObject=new JSONObject(jsonstr);
             return null;
         }
 
@@ -144,9 +189,54 @@ public class RegisterEventFragment extends Fragment implements AdapterView.OnIte
             if (progressDialog.isShowing()) {
                 progressDialog.cancel();
             }
-            ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,strings);
-            spinner.setAdapter(arrayAdapter);
-            spinner.setOnItemSelectedListener(RegisterEventFragment.this);
+            if (strings==null) {
+                Toast.makeText(getActivity(),"Could not fetch events, please try again",Toast.LENGTH_SHORT).show();
+            } else{
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, strings);
+                spinner.setAdapter(arrayAdapter);
+                spinner.setOnItemSelectedListener(RegisterEventFragment.this);
+            }
+        }
+    }
+
+    public class RegisterEventTask extends AsyncTask<ArrayList<Integer>,Void,String>{
+
+        private ProgressDialog progressDialog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog=new ProgressDialog(getActivity());
+            progressDialog.setMessage("registering..");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(ArrayList<Integer>... tzIdList) {
+
+            String jsonstr= Util.getStringFromURL(eventlisturl);
+            if (jsonstr!=null) {
+                Log.d("GOT FROM HTTP", jsonstr);
+
+            }
+//            JSONObject jsonObject=new JSONObject(jsonstr);
+            return jsonstr;
+        }
+
+        @Override
+        protected void onPostExecute(String string) {
+            super.onPostExecute(string);
+            if (progressDialog.isShowing()) {
+                progressDialog.cancel();
+            }
+            if (string==null) {
+                Toast.makeText(getActivity(),"Error, please try again",Toast.LENGTH_SHORT).show();
+            } else{
+                Toast.makeText(getActivity(),string,Toast.LENGTH_SHORT).show();
+//                if (string.equalsIgnoreCase("registered")) {
+                    //super.onBackPressed();
+//                }
+            }
         }
     }
 }
