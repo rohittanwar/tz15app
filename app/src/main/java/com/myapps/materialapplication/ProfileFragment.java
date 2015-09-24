@@ -27,8 +27,8 @@ import java.util.HashMap;
  */
 public class ProfileFragment extends Fragment {
     public static final String TAG = "stats";
-//    public static final String profileUrl="http://192.168.87.50/tz-registration-master/profile/index_mobile/9346472";
-    public static final String profileUrl="http://bhuichalo.com/tz15/profile.json";
+    public static final String profileUrl="http://192.168.87.50/tz-registration-master/profile/index_mobile/9346472";
+//    public static final String profileUrl="http://bhuichalo.com/tz15/profile.json";
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
