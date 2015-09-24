@@ -30,8 +30,8 @@ import java.util.ArrayList;
  */
 public class RegisterEventFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 //    public static final String eventlisturl="http://jsonplaceholder.typicode.com/posts";
-    public static final String eventlisturl="http://192.168.87.50/tz-registration-master/events/get_all_events_mobile";
-    public static final String registerurl="http://localhost/tz-registration-master/events/registerteam";
+    public static final String eventlisturl="http://bhuichalo.com/tz15/events.json";
+    public static final String registerurl="http://bhuichalo.com/tz15/event_reg.php";
     private ArrayList<Integer> ids;
     private ArrayList<String> names;
     private int min;

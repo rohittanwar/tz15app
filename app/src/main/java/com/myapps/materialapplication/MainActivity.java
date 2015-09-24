@@ -40,26 +40,26 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         Fragment fragment;
         switch (position) {
-            case 3: //home
+            case 0: //home
 
-                    fragment = new HomeFragment();
+                fragment = new HomeFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
                 break;
             case 1: //profile
                 Toast.makeText(getApplicationContext(),"hello",Toast.LENGTH_LONG).show();
-                    fragment = new ProfileFragment();
+                fragment = new ProfileFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
                 break;
             case 2: //registration
-                    fragment = new RegistrationFragment();
+                fragment = new RegistrationFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
                 break;
-            case 0: //events
-                    fragment = new EventsFragment();
+            case 3: //events
+                fragment = new EventsFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
                 break;
             case 4: //workshops
-                    fragment = new WorkshopsFragment();
+                fragment = new WorkshopsFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
                 break;
             case 5: //Map //TODO
@@ -70,11 +70,11 @@ public class MainActivity extends ActionBarActivity
 //                getFragmentManager().beginTransaction().replace(R.id.container, fragment, EventsFragment.TAG).commit();
                 break;
             case 6: //T-Shirts
-                    fragment = new TShirtsFragment();
+                fragment = new TShirtsFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
                 break;
             case 7: //FAQ
-                    fragment = new FAQFragment();
+                fragment = new FAQFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
                 break;
             case 8: //logout //TODO
