@@ -17,29 +17,46 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Created by John on 9/21/2015.
  */
 public class Util {
 
-    public static String getStringFromURLWithPost(String s){
+    public static String getStringFromURLWithPost(String s,HashMap<String,String> hashMap){
         try {
             URL url=new URL(s);
             HttpURLConnection httpURLConnection=(HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoOutput(true);
-            httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            //httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             httpURLConnection.connect();
-            JSONObject jsonParam = new JSONObject();
-            jsonParam.put("eventid", "12");
+           // JSONObject jsonParam = new JSONObject();
+           // jsonParam.put("eventid", "12");
+            int len = hashMap.size();
+            Set<String> set = hashMap.keySet();
+            java.util.Iterator ir = set.iterator();
+            String data = new String();
 
-            String values = "jsonValue="+ URLEncoder.encode(jsonParam.toString(),"UTF-8");
+            for(int i=0;i<len;i++) {
+                String key = (String) ir.next();
+                String value = hashMap.get(key);
+                Log.d("testing_data"+i,key+" "+value);
+                if(i==0)
+                data = ""+key+"="+URLEncoder.encode(value,"UTF-8");
+                else
+               data +="&"+key+"="+URLEncoder.encode(value,"UTF-8");
+            }
+
+            Log.d("checking_send_data",data);
+           // String values = "jsonValue="+ URLEncoder.encode(jsonParam.toString(),"UTF-8");
            // String userid;
             //String param = "9346472";
-            //String param= "userid=" + URLEncoder.encode("9346472","UTF-8")+"&userid1=" + URLEncoder.encode("9346472","UTF-8");
+            //String param= "userid=" + URLEncoder.encode("9346472","UTF-8");
             OutputStreamWriter out = new OutputStreamWriter(httpURLConnection.getOutputStream());
-            out.write(values);
+            out.write(data);
             out.close();
 
 
@@ -61,14 +78,14 @@ public class Util {
 
                     builder.append(line);
                 }
+                if(builder.toString() == null)
+                    Log.d("string test","null string");
                 Log.d("checking_val",builder.toString());
                 return builder.toString();
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
@@ -86,7 +103,7 @@ public class Util {
 //            urlConnection.setDoOutput(false);
 //
             HttpURLConnection httpURLConnection=(HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("POST");
+//            httpURLConnection.setRequestMethod("POST");
 //            httpURLConnection.setDoInput(true);
 //            httpURLConnection.setDoOutput(true);
             httpURLConnection.connect();

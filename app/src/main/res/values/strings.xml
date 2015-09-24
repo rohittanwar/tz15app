@@ -24,5 +24,8 @@
     <string name="title_activity_register_event">RegisterEvent</string>
     <string name="title_activity_register_workshop">RegisterWorkshop</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_workshop_payment">workshop_payment</string>
+    <string name="title_activity_workshop_payment_details">WorkshopPaymentDetailsActivity</string>
+    <string name="title_activity_event_confirmation">EventConfirmationActivity</string>
 
 </resources>
