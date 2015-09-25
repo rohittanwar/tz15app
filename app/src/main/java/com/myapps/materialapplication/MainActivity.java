@@ -42,7 +42,7 @@ public class MainActivity extends ActionBarActivity
         switch (position) {
             case 3: //home
                 fragment = getFragmentManager().findFragmentByTag(StatsFragment.TAG);
-                    if(fragment==null)
+                if(fragment==null)
                     fragment = new HomeFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
                 break;

@@ -15,6 +15,6 @@
     <color name="myWindowBackground">#FFFFFF</color>
     <color name="myTextPrimaryColor">#212121</color>
     <color name="myNavigationColor">#000000</color>
-
+    <color name="recyclerview">#1c1c1c</color>
     <color name="selected_gray">#ffdbdbdb</color>
 </resources>
