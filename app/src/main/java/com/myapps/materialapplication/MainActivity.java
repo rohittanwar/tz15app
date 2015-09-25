@@ -40,12 +40,11 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         Fragment fragment;
         switch (position) {
-            case 3: //home
-
+            case 1: //home
                 fragment = new HomeFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
                 break;
-            case 1: //profile
+            case 0: //profile
                 Toast.makeText(getApplicationContext(),"hello",Toast.LENGTH_LONG).show();
                 fragment = new ProfileFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
@@ -54,7 +53,7 @@ public class MainActivity extends ActionBarActivity
                 fragment = new RegistrationFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
                 break;
-            case 0: //events
+            case 3: //events
                 fragment = new EventsFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment, HomeFragment.TAG).commit();
                 break;

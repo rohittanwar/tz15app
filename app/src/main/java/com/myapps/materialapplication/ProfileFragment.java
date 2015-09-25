@@ -2,31 +2,28 @@ package com.myapps.materialapplication;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myapps.materialapplication.Data.Util;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by poliveira on 11/03/2015.
- */
+
 public class ProfileFragment extends Fragment {
-    public static final String TAG = "stats";
+    public static final String TAG = ProfileFragment.class.getSimpleName();
     public static final String profileUrl="http://192.168.87.50/tz-registration-master/profile/index_mobile/9346472";
 //    public static final String profileUrl="http://bhuichalo.com/tz15/profile.json";
     @Nullable
@@ -38,7 +35,28 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        new LoadEventsTask().execute();
+
+        loadProfileData();
+    }
+
+    private void loadProfileData() {
+        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        Boolean data_stored=sharedPreferences.getBoolean("data_stored", false);
+        if (data_stored){
+            Toast.makeText(getActivity(),"Stored",Toast.LENGTH_SHORT).show();
+            ((TextView) getActivity().findViewById(R.id.textViewTzIdValue)).setText(sharedPreferences.getString("userid", ""));
+            ((TextView)getActivity().findViewById(R.id.textViewTechnozionRegistrationPaid)).setText(sharedPreferences.getString("registration",""));
+            ((TextView)getActivity().findViewById(R.id.textViewHospitalityRegistrationPaid)).setText(sharedPreferences.getString("hospitality",""));
+            ((TextView)getActivity().findViewById(R.id.textViewName)).setText(sharedPreferences.getString("name",""));
+            ((TextView)getActivity().findViewById(R.id.textViewCollegeIdValue)).setText(sharedPreferences.getString("collegeid",""));
+            ((TextView)getActivity().findViewById(R.id.textViewCollege)).setText(sharedPreferences.getString("college",""));
+            ((TextView)getActivity().findViewById(R.id.textViewPhoneNumber)).setText(sharedPreferences.getString("phone",""));
+            ((TextView)getActivity().findViewById(R.id.textViewEmail)).setText(sharedPreferences.getString("email",""));
+        }else {
+            Toast.makeText(getActivity(),"Loading",Toast.LENGTH_SHORT).show();
+            new LoadEventsTask().execute();
+        }
     }
 
     public class LoadEventsTask extends AsyncTask<Void,Void,HashMap<String ,String>> {
@@ -99,15 +117,33 @@ public class ProfileFragment extends Fragment {
             if (hashMap==null) {
                 Toast.makeText(getActivity(), "Could not fetch events, please try again", Toast.LENGTH_SHORT).show();
             } else{
-                ((TextView)getActivity().findViewById(R.id.textViewTzIdValue)).setText(hashMap.get("userid"));
                 if (hashMap.get("registration").equalsIgnoreCase("paid")){
                     //TODO SAVE THINGS IN SHAREDPREFERENCES
                     getActivity().findViewById(R.id.imageViewQrCode).setVisibility(View.VISIBLE);
+                    SharedPreferences sharedPreferences=PreferenceManager.getDefaultSharedPreferences(getActivity());
+                    SharedPreferences.Editor editor= sharedPreferences.edit();
+
+
+                    for(String s:hashMap.keySet()){
+                        editor.putString(s,hashMap.get(s));
+                    }
+                    editor.putBoolean("data_stored",true);
+                    editor.apply();
+//                    editor.putString("registration", hashMap.get("registration"));
+//                    editor.putString("hospitality",hashMap.get("hospitality"));
+//                    editor.putString("userid",hashMap.get("userid"));
+//                    editor.putString("name",hashMap.get("name"));
+//                    editor.putString("collegeid",hashMap.get("collegeid"));
+//                    editor.putString("college",hashMap.get("college"));
+//                    editor.putString("phone",hashMap.get("phone"));
+//                    editor.putString("email",hashMap.get("email"));
                 }
+                ((TextView)getActivity().findViewById(R.id.textViewTzIdValue)).setText(hashMap.get("userid"));
                 ((TextView)getActivity().findViewById(R.id.textViewTechnozionRegistrationPaid)).setText(hashMap.get("registration"));
                 ((TextView)getActivity().findViewById(R.id.textViewHospitalityRegistrationPaid)).setText(hashMap.get("hospitality"));
                 ((TextView)getActivity().findViewById(R.id.textViewName)).setText(hashMap.get("name"));
                 ((TextView)getActivity().findViewById(R.id.textViewCollegeIdValue)).setText(hashMap.get("collegeid"));
+                ((TextView)getActivity().findViewById(R.id.textViewCollege)).setText(hashMap.get("college"));
                 ((TextView)getActivity().findViewById(R.id.textViewPhoneNumber)).setText(hashMap.get("phone"));
                 ((TextView)getActivity().findViewById(R.id.textViewEmail)).setText(hashMap.get("email"));
             }
